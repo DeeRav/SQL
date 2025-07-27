@@ -1,0 +1,42 @@
+create database artist_skills;
+use artist_skills;
+
+ CREATE TABLE Artists (artist_id INT PRIMARY KEY,
+ artist_name VARCHAR(100));
+ 
+insert into Artists values 
+(1,'Rahul'),
+(2,'Puneeth'),
+(3,'Pavan');
+
+ CREATE TABLE Skills 
+ (skill_id INT PRIMARY KEY,
+ skill_name VARCHAR(100));
+ 
+insert into Skills values
+(101,'Acting'),
+(102,'Dancing'),
+(103,'Singing');
+
+CREATE TABLE Artist_Skills
+(artist_id int,
+ skill_id int, 
+ FOREIGN KEY (artist_id) REFERENCES Artists(artist_id),
+ FOREIGN KEY (skill_id) REFERENCES Skills(skill_id));
+ 
+ insert into Artist_Skills values
+ (1,101),
+ (1,102),
+ (2,102),
+ (2,103),
+(3,101);
+
+ SELECT 
+    a.artist_id, a.artist_name AS artist_name, s.skill_name
+FROM
+    Artists a
+        JOIN
+    Artist_Skills ask ON a.artist_id = ask.artist_id
+        JOIN
+    Skills s ON ask.skill_id = s.skill_id
+ORDER BY a.artist_id;
