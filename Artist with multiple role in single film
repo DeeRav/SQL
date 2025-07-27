@@ -1,0 +1,42 @@
+create database artist_roles;
+use artist_roles;
+
+ CREATE TABLE Artists (artist_id INT PRIMARY KEY,
+ artist_name VARCHAR(100));
+ 
+insert into Artists values 
+(1,'Rahul'),
+(2,'Puneeth'),
+(3,'Pavan');
+
+ CREATE TABLE Roles 
+ (role_id INT PRIMARY KEY,
+ role_name VARCHAR(100));
+ 
+insert into Roles values
+(101,'Doctor'),
+(102,'Businessmen'),
+(103,'Carpenter');
+
+CREATE TABLE Artist_Roles
+(artist_id int,
+ role_id int, 
+ FOREIGN KEY (artist_id) REFERENCES Artists(artist_id),
+ FOREIGN KEY (role_id) REFERENCES Roles(role_id));
+ 
+ insert into Artist_Roles values
+ (1,101),
+ (1,102),
+ (2,102),
+ (2,103),
+ (3,101);
+
+ SELECT 
+    a.artist_id, a.artist_name AS artist_name, s.role_name
+FROM 
+    Artists a
+        JOIN
+    Artist_Roles ask ON a.artist_id = ask.artist_id
+        JOIN
+    Roles s ON ask.role_id = s.role_id
+ORDER BY a.artist_id;
