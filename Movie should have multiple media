@@ -1,0 +1,52 @@
+create database Test1;
+use Test1;
+CREATE TABLE Movie (
+    Movie_id INT PRIMARY KEY,
+    Movie_name VARCHAR(100)
+);
+insert into Movie values 
+(1,'Uyire'),
+(2,'Appu'),
+(3,'Dabangg'),
+(4,'Bombay');
+
+select * from Movie;
+
+CREATE TABLE Media (
+    media_id INT PRIMARY KEY,
+    media_name VARCHAR(100)
+);
+insert into Media values 
+(101,'Video'),
+(102,'Image'),
+(103,'Blu-Ray'),
+(104,'Digital');
+
+select * from Media;
+
+CREATE TABLE Movie_Media 
+(movie_id int,
+ media_id int,
+  FOREIGN KEY (movie_id) REFERENCES Movie(movie_id),
+  FOREIGN KEY (media_id) REFERENCES Media(media_id));
+  
+insert into Movie_Media values 
+(1,101),
+(1,102),
+(2,102),
+(2,103),
+(3,101);
+
+select * from Movie_Media;
+
+SELECT 
+    a.movie_name ,
+    s.media_name
+FROM 
+    Movie a
+JOIN 
+    Movie_Media mm ON a.movie_id = mm.movie_id
+JOIN 
+    Media s ON mm.media_id = s.media_id
+ORDER BY 
+    a.movie_id;
