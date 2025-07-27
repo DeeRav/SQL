@@ -1,0 +1,44 @@
+create database artist_reviews;
+use artist_reviews;
+
+ CREATE TABLE Artists (artist_id INT PRIMARY KEY,
+ artist_name VARCHAR(100));
+ 
+insert into Artists values 
+(1,'Rahul'),
+(2,'Puneeth'),
+(3,'Pavan');
+
+ CREATE TABLE User_Review 
+ (user_id INT PRIMARY KEY,
+ user_name VARCHAR(100),
+ user_review VARCHAR(200)
+ );
+ 
+insert into User_Review values
+(101,'ABC','Good'),
+(102,'DEF','Bad'),
+(103,'XYZ','Satisfactory');
+
+CREATE TABLE Artist_User
+(artist_id int,
+ user_id int, 
+ FOREIGN KEY (artist_id) REFERENCES Artists(artist_id),
+ FOREIGN KEY (user_id) REFERENCES User_Review(user_id));
+ 
+ insert into Artist_User values
+ (1,101),
+ (1,102),
+ (2,102),
+ (2,103),
+ (3,101);
+
+ SELECT 
+    a.artist_id, a.artist_name AS artist_name, s.user_name, s.user_review
+FROM 
+    Artists a
+        JOIN
+    Artist_User ask ON a.artist_id = ask.artist_id
+        JOIN
+    User_Review s ON ask.user_id = s.user_id
+ORDER BY a.artist_id;
